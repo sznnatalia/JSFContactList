@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Kontaktok</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="2" border="1" cellpadding="5">
+                <h:dataTable value="#{kontaktok.kontaktok}" var="kontakt" border="0">
+                <h:column>
+                <f:facet name="header">Név</f:facet>
+                <h:commandLink value="#{kontakt.name}" action="#{kontaktok.kivalaszt(kontakt)}"/>
+                </h:column>
+                <h:column>
+                <f:facet name="header">E-mail</f:facet>
+                #{kontakt.email}
+                </h:column>
+                <h:column>
+                <f:facet name="header">Módosítás</f:facet>
+                 <h:commandButton value="Módosít" action="#{kontaktok.modositKontakt(kontakt)}" />
+                </h:column>
+                <h:column>
+                <f:facet name="header">Törlés</f:facet>
+                 <h:commandButton value="Törlés" action="#{kontaktok.torolKontakt(kontakt)}" />
+                </h:column>
+                
+            </h:dataTable>
+            
+                <h:panelGroup rendered="#{kontaktok.kivalasztott!=null}">
+                    Név: #{kontaktok.kivalasztott.name}<br/>
+                    E-mail cím: #{kontaktok.kivalasztott.email}<br/>
+                    Születési dátum: #{kontaktok.kivalasztott.birthdate}<br/>
+                    <h:commandButton value="Új telefonszám" action="#{kontaktok.ujTelszam()}" />
+                    <h:dataTable value="#{kontaktok.telszamok}" var="telszam">
+                <h:column>
+                <f:facet name="header">Telefonszám</f:facet>
+                #{telszam.number}
+                </h:column>
+                        <h:column>
+                <f:facet name="header">Típus</f:facet>
+                #{telszam.type}
+                </h:column>
+                        <h:column>
+                <f:facet name="header">Módosítás</f:facet>
+                <h:commandButton value="Módosít" action="#{kontaktok.modosit(telszam)}" />
+                </h:column>
+                    <h:column>
+                <f:facet name="header">Törlés</f:facet>
+                <h:commandButton value="Töröl" action="#{kontaktok.torol(telszam)}" />
+                </h:column>
+                        
+                    </h:dataTable>
+            
+                    
+                </h:panelGroup>
+            </h:panelGrid>
+            
+            <br/>
+            <h:commandButton value="Új kontakt" action="#{kontaktok.ujKontakt()}" />
+            <br/><br/>
+            Keresés: <h:inputText value="#{kontaktok.kereso}"/><h:commandButton value="Keresés" action="#{kontaktok.kereses()}"/><h:commandButton value="Keresés törlése" action="#{kontaktok.keresesTorles()}"/>
+            
+        </h:form>
+
+    </h:body>
+</html>
+
